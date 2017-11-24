@@ -5,8 +5,10 @@ require('dotenv').config();
 // Require keystone
 var keystone = require('keystone');
 
+//require node file module
 var fs = require('fs');
 
+//require node path module
 var path = require('path');
 
 // create a write stream (in append mode)
