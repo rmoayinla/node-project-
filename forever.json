@@ -1,0 +1,7 @@
+{
+    "append": true
+    ,"debug": true
+    ,"watch": true
+    ,"script": "keystone.js"
+
+}
