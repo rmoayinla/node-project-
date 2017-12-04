@@ -19,6 +19,7 @@ exports = module.exports = function (req, res) {
 	// Load all categories
 	view.on('init', function (next) {
 
+		//get all categories from db collection sorted by name //
 		keystone.list('PostCategory').model.find().sort('name').exec(function (err, results) {
 
 			if (err || !results.length) {
