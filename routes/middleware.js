@@ -9,6 +9,8 @@
  */
 var _ = require('lodash');
 
+var keystone = require('keystone');
+
 
 /**
 	Initialises the standard view locals
@@ -20,9 +22,9 @@ var _ = require('lodash');
 exports.initLocals = function (req, res, next) {
 	res.locals.navLinks = [
 		{ label: 'Home', key: 'home', href: '/' },
-		{ label: 'Blog', key: 'blog', href: '/blog' },
-		{ label: 'Gallery', key: 'gallery', href: '/gallery' },
-		{ label: 'Contact', key: 'contact', href: '/contact' },
+		{ label: 'Blog', key: 'blog', href: keystone.get('base url')+'blog' },
+		{ label: 'Gallery', key: 'gallery', href: keystone.get('base url')+'gallery' },
+		{ label: 'Contact', key: 'contact', href: keystone.get('base url')+'contact' },
 	];
 	res.locals.user = req.user;
 	next();
@@ -54,4 +56,8 @@ exports.requireUser = function (req, res, next) {
 	} else {
 		next();
 	}
+};
+
+exports.errorHandler = function(req,res,next) {
+	next();
 };
