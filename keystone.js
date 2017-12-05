@@ -30,8 +30,7 @@ keystone.init({
 
 	'logger': 'combined',
 	'logger options': {
-		stream: accessLogStream,
-		skip: function(req,res){ return res.status() < 400 }
+		stream: accessLogStream
 	},
 
 
@@ -56,6 +55,10 @@ keystone.set('locals', {
 	editable: keystone.content.editable,
 });
 
+var importRoutes = keystone.importer(__dirname);
+var libs = importRoutes('./libs');
+libs.options(keystone);
+
 // Load your project's Routes
 keystone.set('routes', require('./routes'));
 
@@ -67,6 +70,9 @@ keystone.set('nav', {
 	enquiries: 'enquiries',
 	ys: 'ys',
 });
+
+
+
 
 // Start Keystone to connect to your database and initialise the web server
 
