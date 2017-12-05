@@ -1,12 +1,30 @@
 #header {
-	margin-top: 30px;
+	.navbar{ border-radius: 0px;}
+	.container-fluid{
+		&:extend(.no-inner-padding);
+	}
 }
 
+#body{
+	min-height: 100vh;
+}
 #footer {
 	margin-top: 30px;
 	border-top: 1px solid #eeeeee;
 	padding-top: 30px;
 	color: #777777;
+}
+
+#banner{
+	height: 360px;
+	.row{
+		&:extend(.relative,.inner-auto-margin);
+		width: 80%;
+	}
+}
+
+.frontpage-sections{
+	padding: 80px;
 }
 
 .gallery-image img {
