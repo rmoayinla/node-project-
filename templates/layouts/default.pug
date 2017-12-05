@@ -35,39 +35,38 @@ html
 
 	//- HTML BODY
 	body
+		.wrapper 
+			//- HEADER
+			#header: .container-fluid
 
-		//- HEADER
-		#header: .container
+				//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
+				//- ... or completely change this header to suit your design.
+				div(role="navigation").navbar.navbar-default
+					include ../partials/navbar
 
-			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
-			//- ... or completely change this header to suit your design.
+			//- BODY
+			main#body
 
-			div(role="navigation").navbar.navbar-default
-				include ../partials/navbar
+				//- NOTE:
+				//- There is no .container wrapping class around body blocks to allow more flexibility in design.
+				//- Remember to include it in your templates when you override the intro and content blocks!
 
-		//- BODY
-		#body
+				//- The Intro block appears above flash messages (used for temporary information display)
+				block intro
 
-			//- NOTE:
-			//- There is no .container wrapping class around body blocks to allow more flexibility in design.
-			//- Remember to include it in your templates when you override the intro and content blocks!
+				//- Flash messages allow you to display once-off status messages to users, e.g. form
+				//- validation errors, success messages, etc.
+				+flash-messages(messages)
 
-			//- The Intro block appears above flash messages (used for temporary information display)
-			block intro
-
-			//- Flash messages allow you to display once-off status messages to users, e.g. form
-			//- validation errors, success messages, etc.
-			+flash-messages(messages)
-
-			//- The content block should contain the body of your template's content
-			block content
+				//- The content block should contain the body of your template's content
+				block content
 
 
-		//- FOOTER
-		.container: #footer
+			//- FOOTER
+			footer#footer: .container-fluid
 
-			//- You don't _have_ to include a link saying your site is powered by KeystoneJS, but we appreciate it!
-			p Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.
+				//- You don't _have_ to include a link saying your site is powered by KeystoneJS, but we appreciate it!
+				p Powered by <a href="http://keystonejs.com" target="_blank">KeystoneJS</a>.
 
 
 		//- JAVASCRIPT
