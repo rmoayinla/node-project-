@@ -53,6 +53,14 @@ module.exports = function(keystone){
         res.render('errors/500', locals);
         
     });
+
+    keystone.set('400', function(req,res,next){
+        var locals;
+        res.status(400);
+        locals.url = req.url;
+        //render a 400 template page, this is found in templates/views/errors/400.pug //
+        res.render('errors/400',locals);
+    });
     //set the default email transport method //
     keystone.set('email transport', 'nodemailer');
 
@@ -64,11 +72,11 @@ module.exports = function(keystone){
         debug: true,
         auth:{
             type: 'OAuth2',
-            clientId: '641153326728-roouunstl344ap8cqv8sh655va37sht0.apps.googleusercontent.com',
-            clientSecret: 'om0xxiR_NKzK3VRW3BDWyjBG',
-            user: 'rmoayinla@gmail.com',
-            refreshToken: '1/2CLQ9QXqubNXW1xIfbAvZVJqsGVuYzgNJ_WHLFpGkTZuaBhgk3zS0ffEEMnC-ad5',
-            accessToken: 'ya29.GlsbBet-3y0s0utCoigqDUclR0kLs8_OYk1o2i-di_d3CgWTeqnmcUASGYS1oC_3DPmxli10lJI5z_L-CFKDZI1usK2vnbKLgUawaFzuYOY60XFGUfoU3T8Z86PV'
+            clientId: process.env.SMTP_CLIENT_ID,
+            clientSecret: process.env.SMTP_CLIENT_SECRET,
+            user: process.env.SMTP_USERNAME,
+            refreshToken: process.env.SMTP_REFRESH_TOKEN,
+            accessToken: process.env.SMTP_ACCESS_TOKEN
         }
     });
 
