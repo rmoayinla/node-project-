@@ -54,12 +54,13 @@ module.exports = function(keystone){
         
     });
 
-    keystone.set('400', function(req,res,next){
+    keystone.set('404', function(req,res,next){
         var locals;
-        res.status(400);
-        locals.url = req.url;
+        res.status(404);
+        locals = res.locals;
+        locals.url = req.originalUrl;
         //render a 400 template page, this is found in templates/views/errors/400.pug //
-        res.render('errors/400',locals);
+        res.render('errors/404',locals);
     });
     //set the default email transport method //
     keystone.set('email transport', 'nodemailer');
@@ -86,7 +87,7 @@ module.exports = function(keystone){
         templateName:'sample-email',
         transport: ''
     });
-    email.send({
+    /*email.send({
         from: 'rmoayinla@gmail.com',
         inline_css: true,
         nodemailerConfig: keystone.get('email config'),
@@ -97,6 +98,6 @@ module.exports = function(keystone){
             return; 
         }
         console.log("Mail sent succesfully");
-    });
+    });*/
 
 };
