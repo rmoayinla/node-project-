@@ -3,4 +3,9 @@ extends ../../layouts/default
 block content
 	.container
 		h1 404
-		p.lead Sorry, the page you requested can't be found.
+		p.lead Sorry, 
+			if url
+				a(href=url) #{url} 
+			else 
+				| the page 
+			| you requested can't be found.
