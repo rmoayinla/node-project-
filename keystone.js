@@ -55,9 +55,7 @@ keystone.set('locals', {
 	editable: keystone.content.editable,
 });
 
-var importRoutes = keystone.importer(__dirname);
-var libs = importRoutes('./libs');
-libs.options(keystone);
+require('./libs')(keystone);
 
 // Load your project's Routes
 keystone.set('routes', require('./routes'));
