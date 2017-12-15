@@ -6,10 +6,10 @@ var is = require('is');
 var fs = require('fs');
 
 module.exports = function (dirname,keystone) {
-    
-    var doImport = function (fromPath, app) {
+   
+    var doImport = function (fromPath, app, depth) {
         var imported = {};
-        var parentDir = true;
+        if(!depth) depth = 1;
         //read everything in the pass directory i.e. both files and dirs and loop through each //
         fs.readdirSync(fromPath).forEach(function (name) {
                 //create a directory path by joining the curring index with the parent dir //
@@ -20,15 +20,16 @@ module.exports = function (dirname,keystone) {
     
                 // recur
                 if (info.isDirectory()) {
-                    imported[name] = doImport(fsPath);
-                    parentDir = false;
+                    depth++;
+                    imported[name] = doImport(fsPath,keystone,depth);
+                    depth--;
                 } else {
                     // only import files that we can `require`
                     var ext = path.extname(name);
                     var base = path.basename(name, ext);
                     if (require.extensions[ext]) {
                         //skip some certain files e.g. index.js and import.js
-                        if(parentDir && (name !== 'index.js' || name !== 'import.js')){
+                        if(depth < 2 &&(name !== 'index.js' && name !== 'import.js')){
                             imported[name] = require(fsPath);
                             loadModule(imported,name,keystone);
                         }
