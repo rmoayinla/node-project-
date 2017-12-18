@@ -1,11 +1,14 @@
 extends ../../layouts/default
 
 block intro
-    .container-fluid
-        h1.text-uppercase to-dos
+    header.container-fluid.site-intro: .row
+        .md-50
+            h1.text-uppercase to-dos
+            p.summary List of things I want to do, their priorities, details, duration,
+                | and their status (done, pending or expired).
 block content
-    main#content
-        section.page-content 
+    main#content: .row
+        section.page-content.col-md-6.col-md-offset-2
             if(!todos || todos.length < 1)
-                p.block There is no todos present yet, kindly check back some later time
+                h3.text-muted There are no todos present yet, kindly check back some later time
         
