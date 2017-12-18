@@ -7,13 +7,12 @@
 			span.icon-bar
 		a.navbar-brand(href='/') project
 	.collapse.navbar-collapse
-		ul.nav.navbar-nav.navbar-left
-			each link in navLinks
-				li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
-		ul.nav.navbar-nav.navbar-right
-			if user
-				if user.canAccessKeystone
-					li: a(href='/keystone') Open Keystone
-				li: a(href='/keystone/signout') Sign Out
-			else
-				li: a(href='/keystone/signin') Sign In
+			if(navLinks.left)
+				ul.nav.navbar-nav.navbar-left
+					each link in navLinks.left
+						li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
+			elseif(navLinks.right)
+				ul.nav.navbar-nav.navbar-right
+					each link in navLinks.right
+						li(class=(section && section == link.key ? 'active' : null)): a(href=link.href)= link.label
+			
