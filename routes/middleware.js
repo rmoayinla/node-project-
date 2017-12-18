@@ -11,6 +11,8 @@ var _ = require('lodash');
 
 var keystone = require('keystone');
 
+var assign = require('object-assign');
+
 
 /**
 	Initialises the standard view locals
@@ -30,7 +32,20 @@ exports.initLocals = function (req, res, next) {
 	next();
 };
 
-
+exports.initResponseMethods = function(req,res,next){
+	var locals = assign({}, res.locals, data);
+	res.notFound = function(data){
+		res.status(400).render('errors/404', locals);
+	};
+	
+	res.serverError = function(err, title){
+		var error;
+		error = err.message || err;
+		if(title) error.title = title;
+		req.flash('error', error);
+		res.redirect(req.originalUrl());
+	}
+}
 /**
 	Fetches and clears the flashMessages before a view is rendered
 */
@@ -52,12 +67,21 @@ exports.flashMessages = function (req, res, next) {
 exports.requireUser = function (req, res, next) {
 	if (!req.user) {
 		req.flash('error', 'Please sign in to access this page.');
-		res.redirect('/keystone/signin');
+		res.redirect('/keystone/signin?returnUrl='+req.originalUrl());
 	} else {
 		next();
 	}
 };
 
 exports.errorHandler = function(req,res,next) {
+	var statusCode, locals;
+	statusCode = res.status() || 200;
+	locals = res.locals;
+	if(statusCode > 400 && statusCode < 500 ){
+		return res.render('errors/404', locals);
+	}
+	if(statusCode > 500){
+		return res.render('errors/500', locals);
+	}
 	next();
 };
