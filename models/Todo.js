@@ -30,6 +30,11 @@ Todo.add({
     category:{type: Types.Relationship, ref: 'PostCategory', many: true},
 });
 
+schema = Todo.schema;
+schema.virtual('url').get(function(){
+    return '/todos/'+this.slug;
+});
+
 Todo.register();
 
 
