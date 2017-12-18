@@ -1,0 +1,11 @@
+extends ../../layouts/default
+
+block intro
+    .container-fluid
+        h1.text-uppercase to-dos
+block content
+    main#content
+        section.page-content 
+            if(!todos || todos.length < 1)
+                p.block There is no todos present yet, kindly check back some later time
+        
