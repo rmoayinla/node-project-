@@ -1,0 +1,13 @@
+extends ../../layouts/default
+block intro
+    header.container-fluid.site-intro: .row
+        .md-50
+            h1.text-capitalize create account
+            p.summary Fill the form below to create an account and become a registered member. 
+                | Registered members can access the user dashboard, write comments on posts and 
+                | create To-do lists. know the required information. Follow the instructions and 
+                | validation messages in filling the form, some fields are required.
+block content
+    main#content: .row
+        section.page-content.col-md-6.col-md-offset-2
+            include ../../partials/signup
