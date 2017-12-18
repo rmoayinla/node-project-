@@ -1,3 +1,4 @@
+require('babel-polyfill');
 // Simulate config options from your production environment by
 // customising the .env file in your project's root folder.
 require('dotenv').config();
@@ -55,6 +56,7 @@ keystone.set('locals', {
 	editable: keystone.content.editable,
 });
 
+//load everything i.e only js files in the libs folder //
 require('./libs')(keystone);
 
 // Load your project's Routes
