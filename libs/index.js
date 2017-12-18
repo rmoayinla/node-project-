@@ -5,11 +5,13 @@
 
 var importLibs = require('./import');
 var path = require('path');
+var utils = require('util');
 
 module.exports = function(keystone){
     
     var dirname = path.dirname(__filename);
-    
-    return importLibs(dirname, keystone);
+    var libs;
+    libs = importLibs(dirname, keystone);
+    return;
     
 }
