@@ -22,12 +22,23 @@ var assign = require('object-assign');
 	or replace it with your own templates / logic.
 */
 exports.initLocals = function (req, res, next) {
-	res.locals.navLinks = [
+	var navLinks = {};
+	navLinks.left = [
 		{ label: 'Home', key: 'home', href: '/' },
 		{ label: 'Blog', key: 'blog', href: keystone.get('base url')+'blog' },
 		{ label: 'Gallery', key: 'gallery', href: keystone.get('base url')+'gallery' },
 		{ label: 'Contact', key: 'contact', href: keystone.get('base url')+'contact' },
 	];
+	navLinks.right = [];
+	if(req.user){
+		navLinks.right.push({ label: 'Sign Out', href: '/signout' });
+		if(req.user.canAccessKeystone)
+			navLinks.right.push({ label: 'Open Keystone', href: '/keystone' });
+	}else{
+		navLinks.right.push({ label: 'Sign In', href: '/signin' });
+		navLinks.right.push({ label: 'Create Account', href: keystone.get('base url')+'signup' });
+	}
+	res.locals.navLinks = navLinks;
 	res.locals.user = req.user;
 	next();
 };
