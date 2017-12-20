@@ -1,0 +1,13 @@
+{
+    "directory": "./public/js",
+    "save": true,
+    "save-exact": true,
+    "interactive": true,
+    "scripts": {
+        
+    },
+    "ignoredDependencies": [
+        "jquery",
+        "bootstrap"
+    ]
+}

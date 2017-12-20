@@ -1,0 +1,20 @@
+{
+  "name": "project",
+  "description": "a simple node project",
+  "main": "keystone.js",
+  "authors": [
+    "rabiu mustapha"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "es5-shim": "4.5.10"
+  }
+}
