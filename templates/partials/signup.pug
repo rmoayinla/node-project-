@@ -3,18 +3,22 @@ form(class='signup-form' action='/signup' method='POST' enctype='multipart/formd
     fieldset 
         .form-group
             label Email: 
-            input.form-control(type='email' required='true' name='email')
+            input.form-control(type='email' required='true' name='email' 
+            value=(form && form.email) ? form.email : '')
         .form-group
             label Firstname:
-            input.form-control(type='text' name='firstname')
+            input.form-control(type='text' name='firstname' 
+            value=(form && form.firstname) ? form.firstname : '')
         .form-group
             label Surname:
-            input.form-control(type='text' name='lastname')
+            input.form-control(type='text' name='lastname' value=(form && form.lastname) ? form.lastname : '')
         .form-group
             label Username:
-            input.form-control(type='text' name='username')
+            input.form-control(type='text' name='username' 
+            value=(form && form.username) ? form.username : '')
         .form-group
             label Password:
-            input.form-control(type='password' name='password')
+            input.form-control(type='password' name='password' 
+            value=(form && form.password) ? form.password : '')
         .form-group
             input(type='submit' class='btn btn-submit btn-primary' name='submit' value='Signup')
