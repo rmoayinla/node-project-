@@ -16,6 +16,8 @@
   ],
   "dependencies": {
     "es5-shim": "4.5.10",
-    "es6-promise": "4.1.1"
+    "es6-promise": "4.1.1",
+    "jQuery": "3.2.1",
+    "js-polyfills": "0.1.41"
   }
 }
