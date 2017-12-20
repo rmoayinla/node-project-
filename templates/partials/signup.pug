@@ -6,10 +6,13 @@ form(class='signup-form' action='/signup' method='POST' enctype='multipart/formd
             input.form-control(type='email' required='true' name='email')
         .form-group
             label Firstname:
-            input.form-control(type='text' name='name.first')
+            input.form-control(type='text' name='firstname')
         .form-group
             label Surname:
-            input.form-control(type='text' name='name.last')
+            input.form-control(type='text' name='lastname')
+        .form-group
+            label Username:
+            input.form-control(type='text' name='username')
         .form-group
             label Password:
             input.form-control(type='password' name='password')
