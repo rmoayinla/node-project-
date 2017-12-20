@@ -34,10 +34,22 @@ Todo.add({
 
 schema = Todo.schema;
 
-//add a url virtual to the field, this can be accessed by keystone.Field('Todo').url //
+//add a url virtual to the field, this can be accessed by keystone.List('Todo').url //
 schema.virtual('url').get(function(){
     return '/todos/'+this.slug;
 });
+
+//add a inProgess method to determine if the status of the todo is 'In progress' 
+//i.e keystone.List('Todo').inProgress()
+schema.methods.inProgress = function(){
+    return this.state.toLowerCase() === 'in progress';
+}
+
+//
+Todo.defaultColumns = 'title, state|20%, createdBy, description';
+
+//relationships 
+Todo.relationship({ ref: 'Y', refPath: 'name', path: 'author' });
 
 //add this model to keystone fields //
 Todo.register();
