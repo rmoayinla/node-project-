@@ -4,7 +4,9 @@
 		&:extend(.no-inner-padding);
 	}
 }
-
+.wrapper{
+	overflow-y: hidden;
+}
 #body{
 	min-height: 100vh;
 }
@@ -27,8 +29,26 @@
 	padding: 80px;
 }
 
+.site-intro{
+	&:extend(.pad-md);
+}
+
+#content{
+	&:extend(.outer-pad-md);
+	.page-content{
+		&:extend(.inner-pad-sm);
+	}
+}
+.md-50{
+	&:extend(.inner-auto-margin);
+	width: 65%;
+}
+
 .gallery-image img {
     display: block;
     max-width: 100%;
     height: auto;
+}
+.summary{
+	&:extend(.oblique);
 }
