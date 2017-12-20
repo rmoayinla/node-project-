@@ -1,0 +1,43 @@
+{
+  "minify": true,
+  "options": [
+    "setClasses"
+  ],
+  "feature-detects": [
+    "test/audio",
+    "test/cookies",
+    "test/cors",
+    "test/emoji",
+    "test/history",
+    "test/ie8compat",
+    "test/input",
+    "test/inputsearchevent",
+    "test/inputtypes",
+    "test/css/animations",
+    "test/css/backgroundposition-shorthand",
+    "test/css/backgroundposition-xy",
+    "test/css/backgroundrepeat",
+    "test/css/backgroundsize",
+    "test/css/backgroundsizecover",
+    "test/css/borderimage",
+    "test/css/boxshadow",
+    "test/css/calc",
+    "test/css/flexbox",
+    "test/css/positionsticky",
+    "test/css/resize",
+    "test/css/rgba",
+    "test/css/textshadow",
+    "test/css/transforms",
+    "test/css/transforms3d",
+    "test/css/transitions",
+    "test/css/vhunit",
+    "test/css/vwunit",
+    "test/es6/array",
+    "test/es6/arrow",
+    "test/es6/collections",
+    "test/es6/generators",
+    "test/file/filesystem",
+    "test/forms/capture",
+    "test/forms/fileinputdirectory"
+  ]
+}
