@@ -20,6 +20,8 @@ var assign = require('object-assign');
 	The included layout depends on the navLinks array to generate
 	the navigation in the header, you may wish to change this array
 	or replace it with your own templates / logic.
+	I tweaked the navlocals to include navlinks.left and navlins.right
+	each index in the navlinks is an array that will changed to a list in the template
 */
 exports.initLocals = function (req, res, next) {
 	var navLinks = {};
@@ -31,12 +33,12 @@ exports.initLocals = function (req, res, next) {
 	];
 	navLinks.right = [];
 	if(req.user){
-		navLinks.right.push({ label: 'Sign Out', href: '/signout' });
+		navLinks.right.push({ label: 'Sign Out', href: '/keystone/signout?returnUrl='+req.originalUrl });
 		if(req.user.canAccessKeystone)
 			navLinks.right.push({ label: 'Open Keystone', href: '/keystone' });
 	}else{
-		navLinks.right.push({ label: 'Sign In', href: '/signin' });
-		navLinks.right.push({ label: 'Create Account', href: keystone.get('base url')+'signup' });
+		navLinks.right.push({ label: 'Sign In', href: '/keystone/signin?returnUrl='+req.originalUrl });
+		navLinks.right.push({ label: 'Create Account', key: 'sign-up', href: keystone.get('base url')+'signup' });
 	}
 	res.locals.navLinks = navLinks;
 	res.locals.user = req.user;
@@ -44,17 +46,18 @@ exports.initLocals = function (req, res, next) {
 };
 
 exports.initResponseMethods = function(req,res,next){
-	var locals = assign({}, res.locals, data);
+	var locals = res.locals;;
 	res.notFound = function(data){
+		if(data) locals = assign({}, res.locals, data);
 		res.status(400).render('errors/404', locals);
 	};
 	
-	res.serverError = function(err, title){
-		var error;
+	res.flashError = function(err, title){
+		var error= {};
 		error = err.message || err;
 		if(title) error.title = title;
 		req.flash('error', error);
-		res.redirect(req.originalUrl());
+		res.redirect(req.originalUrl);
 	}
 }
 /**
@@ -89,10 +92,10 @@ exports.errorHandler = function(req,res,next) {
 	statusCode = res.status() || 200;
 	locals = res.locals;
 	if(statusCode > 400 && statusCode < 500 ){
-		return res.render('errors/404', locals);
+		
 	}
 	if(statusCode > 500){
-		return res.render('errors/500', locals);
+		
 	}
 	next();
 };
