@@ -1,7 +1,6 @@
 require('es6-promise').polyfill();
 var 
     keystone = require('keystone'),
-    async = require('async'),
     extend = require('extend');
 
 exports = module.exports = function(req, res){
@@ -24,97 +23,14 @@ exports = module.exports = function(req, res){
     view.on('post', function(next){
         var userData;
         userData = req.body;
-        /*async.series([
-			
-			function(cb) {
-				
-				if (!userData.username || !userData.firstname || !userData.lastname || !userData.email || !userData.password) {
-					req.flash('error', 'Please enter a username, your name, email and password.');
-					return cb(true);
-				}
-				
-				return cb();
-				
-			},
-            
-            function(cb) {
-				
-				keystone.list('Y').model.findOne({ username: userData.username }, function(err, user) {
-					
-					if (err || user) {
-						req.flash('error', 'User already exists with that Username.');
-						return cb(true);
-					}
-					
-					return cb();
-					
-				});
-				
-			},
-			
-			function(cb) {
-				
-				keystone.list('Y').model.findOne({ email: userData.email }, function(err, user) {
-					
-					if (err || user) {
-						req.flash('error', 'User already exists with that email address.');
-						return cb(true);
-					}
-					
-					return cb();
-					
-				});
-				
-			},
-			
-			function(cb) {
-			
-				var newUserData = {
-                    username: userData.username,
-					name: {
-						first: userData.firstname,
-						last: userData.lastname,
-					},
-					email: userData.email,
-					password: userData.password
-				};
-				
-				var User = keystone.list('Y').model,
-					newUser = new User(newUserData);
-				
-				newUser.save(function(err) {
-					return cb(err);
-				});
-			
-			}
-			
-		], function(err){
-			
-			if (err) {
-                locals.form = userData;
-                return next();
-            }
-			
-			var onSuccess = function() {
- 				res.redirect('/keystone');
-			}
-			
-			var onFail = function(e) {
-                req.flash('error', 'There was a problem signing you up, please try again.');
-                locals.form = userData;
-                console.log('Error creating user, error:%s', e);
-				next();
-			}
-			
-			keystone.session.signin({ email: req.body.email, password: req.body.password }, req, res, onSuccess, onFail);
-			
-        });*/
+        
         checkFormData(userData)
             .then(function checkUsernameExists(data){
                 return new Promise(function(resolve, reject){
-                    keystone.list('Y').model.findOne({ username: data.username }, function(err, user) {
+                    keystone.list(keystone.get('user model')).model.findOne({ username: data.username }, function(err, user) {
                     
                         if (err || user) {
+                            formErrors.username = 'User already exists with that Username';
                             reject(new Error('User already exists with that Username.'), err);
                         }
                         
@@ -128,6 +44,7 @@ exports = module.exports = function(req, res){
                     keystone.list('Y').model.findOne({ email: data.email }, function(err, user) {
                     
                         if (err || user) {
+                            formErrors.email = 'User already exists with that email address';
                             reject(new Error('User already exists with that email address.'));
                         }
                         
@@ -158,6 +75,26 @@ exports = module.exports = function(req, res){
                     
                 });
             })
+            .then(function signInUser(status){
+                return new Promise(function(resolve, reject){
+                    var onSuccess, OnFailure;
+                    onSuccess = function(){
+                        resolve('success');
+                        res.redirect('/keystone');
+                    } 
+                    onFailure = function(e){
+                        reject(e, new Error('Unable to signin user'));
+                    }
+                    keystone.session.signin(
+                        { email: req.body.email, password: req.body.password }, 
+                        req, 
+                        res,
+                        onSuccess, 
+                        onFailure
+                    );
+                });
+                
+            })
             .catch(function handleError(message, err){
                 req.flash('error', message);
                 if(err) console.log('User could not be created: %o', err);
@@ -183,6 +120,7 @@ exports = module.exports = function(req, res){
             resolve(data);
         });
     }
+    
     
 
     
