@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "async": "2.1.4",
+    "babel-runtime": "^6.26.0",
     "dotenv": "4.0.0",
     "express-validator": "^4.3.0",
     "keystone": "4.0.0-beta.5",
@@ -14,6 +15,7 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "debug": "^3.1.0",
     "eslint": "3.15.0",
     "eslint-config-keystone": "3.0.0",
@@ -23,7 +25,5 @@
     "lint": "eslint .",
     "start": "node keystone.js"
   },
-  "browserslist": [
-    
-  ]
+  "browserslist": []
 }
