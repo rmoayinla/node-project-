@@ -21,10 +21,12 @@
 var keystone = require('keystone');
 var middleware = require('./middleware');
 var importRoutes = keystone.importer(__dirname);
+const expressValidator = require('express-validator');
 
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
+
 
 //run a middleware before errors are being handeled //
 //dont know this hook is throwing an error, had to tweak index.js in keystone module 
@@ -44,7 +46,9 @@ exports = module.exports = function (app) {
 	app.get('/gallery', routes.views.gallery);
 	app.all('/contact', routes.views.contact);
 
-	app.all('/signup', routes.views.auth.join);
+	
+	app.get('/signup', routes.views.auth.render);
+	app.post('/signup', routes.views.auth.validate, routes.views.auth.create);
 	
 	app.get('/todos', routes.views.todo.index);
 
