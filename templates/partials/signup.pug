@@ -1,13 +1,14 @@
 include ./../mixins/form-value
-- var hasOwnProperty = Object.prototype.hasOwnProperty;
+
 form(class='signup-form' action='/signup' method='POST' enctype='multipart/formdata')
+    
     fieldset 
-        .form-group.has-feedback(class=(error.email)? 'has-error' : '')
-            label Email: 
+        .form-group.has-feedback(class=errors.email ? 'has-error' : '')
+            label Email
             input.form-control(type='email' required='true' name='email' 
-            value=(form && form.email) ? form.email : ''
-            autofocus= (error.email) ? true : false)
-            p.block-text= (error.email) ? error.email : ''
+            value=(form && form.email) ? form.email :''
+            autofocus=(errors.email) ? true : false)
+            p.block-text=''
         .form-group
             label Firstname:
             input.form-control(type='text' name='firstname' 
@@ -15,20 +16,22 @@ form(class='signup-form' action='/signup' method='POST' enctype='multipart/formd
         .form-group
             label Surname:
             input.form-control(type='text' name='lastname' value=(form && form.lastname) ? form.lastname : '')
-        .form-group.has-feedback(class=(error.username) ? 'has-error' : '')
-            label Username:
+        .form-group.has-feedback(class='')
+            label Username
             input.form-control.has-feedback(type='text' name='username' 
             value=(form && form.username) ? form.username : ''
-            autofocus=(error.username)? true: false)
-            if(error.username)
-                span(class='glyphicon glyphicon-warning-sign form-control-feedback')
-            p.block-text= (error.username) ? error.username : ''
+            autofocus= false)
+            span(class='glyphicon glyphicon-warning-sign form-control-feedback')
+            p.block-text=''
                 
             
                 
-        .form-group
+        .form-group.has-feedback(class=errors.password ? 'has-error': '')
             label Password:
             input.form-control(type='password' name='password' 
-            value=(form && form.password) ? form.password : '')
+            value=(form && form.password) ? form.password : ''
+            autofocus=(errors.password) ? true : false)
+            p.block-text=errors.password ? errors.password : ''
+
         .form-group
             input(type='submit' class='btn btn-submit btn-primary' name='submit' value='Signup')
